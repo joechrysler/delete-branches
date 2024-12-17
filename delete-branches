@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+while true; do
+  branches=$(git branch --format "%(refname:short)")
+  choice=$(echo $branches | (echo "Done"; cat -) | fzf --header="Select a branch to delete. Select Done to exit." --layout=reverse --height=20 --border --ansi)
+  if [[ "$choice" == "Done" ]]; then
+    exit 0
+  elif [[ -n "$choice" ]]; then
+    git branch -d "$choice"
+  fi
+done
